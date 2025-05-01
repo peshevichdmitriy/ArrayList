@@ -6,7 +6,7 @@ public class MyArrayList<E> {
 
     private static final int DEFAULT_SIZE = 10;
 
-    public static Object[] data;
+    Object[] data;
 
     public MyArrayList() {
         this.data = new Object[DEFAULT_SIZE];
@@ -14,13 +14,8 @@ public class MyArrayList<E> {
     }
 
     public MyArrayList(int initialSize){
-        if(initialSize>DEFAULT_SIZE){
-            this.data = new Object[initialSize];
-            this.size = 0;
-        } else {
-            this.data = new Object[DEFAULT_SIZE];
-            this.size = 0;
-        }
+        this.data = new Object[Math.max(initialSize, DEFAULT_SIZE)];
+        this.size = 0;
     }
 
     public boolean add(E e){
@@ -44,7 +39,7 @@ public class MyArrayList<E> {
     }
 
     public E get(int index){
-        if(index>=0&&index<=size){
+        if(index>=0&&index<size){
             return (E) data[index];
         }
         return null;
