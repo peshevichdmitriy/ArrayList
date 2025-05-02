@@ -90,6 +90,27 @@ public class MyArrayList<E> {
         return true;
     }
 
+    public boolean addAll(int index, Collection<? extends E> c) {
+        if (index < 0 || index > size) {
+            return false;
+        }
+        Object[] newData = c.toArray();
+        int newDataSize = newData.length;
+        if (newDataSize == 0){
+            return false;
+        }
+        if (size + newDataSize > data.length) {
+            int maybeNewLength = (size*3)/2;
+            int newSize = Math.max(maybeNewLength, size + newDataSize);
+            data = Arrays.copyOf(data, newSize);
+        }
+        System.arraycopy(data, index, data, index + newDataSize, size - index);
+        System.arraycopy(newData, 0, data, index, newDataSize);
+        size += newDataSize;
+        return true;
+    }
+
+
     public static void main(String[] args) {
         MyArrayList<String> list = new MyArrayList<>();
         list.add("fgfd");
@@ -104,5 +125,6 @@ public class MyArrayList<E> {
         list.add("fgfd");
         list.add("fgfd");
         list.add(0, "asjdjd");
+        list.remove("fefwf");
     }
 }
